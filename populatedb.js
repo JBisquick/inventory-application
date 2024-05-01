@@ -24,8 +24,8 @@ console.log(
     console.log("Debug: About to connect");
     await mongoose.connect(mongoDB);
     console.log("Debug: Should be connected?");
-    await createItems();
     await createCategories();
+    await createItems();
     console.log("Debug: Closing mongoose");
     mongoose.connection.close();
   }

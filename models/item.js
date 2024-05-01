@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
   name: { type: String, required: true, maxLength: 200 },
   description: { type: String, required: true, maxLength: 2000 },
-  price: { type: Number, required: true},
+  price: { type: Number, required: true },
   stock: { type: Number, required: true },
-  category: [{ type: Schema.Types.ObjectId, ref: "Category"}],
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: true},
 });
 
 // Virtual for item's URL
