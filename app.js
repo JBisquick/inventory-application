@@ -4,6 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const indexRouter = require("./routes/index");
+const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -14,9 +17,10 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
-const indexRouter = require('./routes/index');
-
 const app = express();
+
+app.use("/", indexRouter);
+app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
