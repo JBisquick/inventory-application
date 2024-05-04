@@ -62,7 +62,7 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
 exports.item_create_post = [
   (req, res, next) => {
     if (!Array.isArray(req.body.category)) {
-      req.body.category = typeof req.body.category === "undefeined" ? [] : [req.body.category]
+      req.body.category = typeof req.body.category === "undefined" ? [] : [req.body.category]
     }
     next();
   },
@@ -76,7 +76,7 @@ exports.item_create_post = [
     .isLength({ mine: 1 })
     .escape(),
   body("price", "Must be a number")
-    .isNumeric()
+    .isFloat()
     .escape(),
   body("stock", "Must be a numver")
     .isNumeric()

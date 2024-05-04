@@ -8,6 +8,9 @@ const indexRouter = require("./routes/index");
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 
 // Set up mongoose connection
+
+const app = express();
+
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://birchcrafter:3E1XkJIo48GCsrq7@cluster0.5uy4soj.mongodb.net/?retryWrites=true&w=majority";
@@ -16,11 +19,6 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
 }
-
-const app = express();
-
-app.use("/", indexRouter);
-app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use("/", indexRouter);
+app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

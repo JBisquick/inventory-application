@@ -49,6 +49,8 @@ exports.category_create_post = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+
     const errors = validationResult(req);
 
     const category = new Category({ name: req.body.name, description: req.body.description });
@@ -61,9 +63,15 @@ exports.category_create_post = [
       });
       return;
     } else {
-      await category.save();
+      const categoryExists = await Category.findOne({ name: req.body.name, description: req.body.description }).exec()
+      if (categoryExists) {
+        res.redirect(categoryExists.url);
+      }
+      else {
+        await category.save();
 
-      res.redirect(category.url);
+        res.redirect(category.url);
+      }
     }
   }),
 ];
