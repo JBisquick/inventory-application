@@ -202,5 +202,5 @@ exports.item_update_post = [
       const updatedItem = await Item.findByIdAndUpdate(req.params.id, item, {});
       res.redirect(updatedItem.url)
     }
-  })
+  }),
 ];
